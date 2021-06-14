@@ -1,6 +1,7 @@
 package me.arthed.walljump;
 
 import me.arthed.walljump.config.WallJumpConfiguration;
+import me.arthed.walljump.handlers.BStats;
 import me.arthed.walljump.listeners.PlayerJoinListener;
 import me.arthed.walljump.listeners.PlayerQuitListener;
 import me.arthed.walljump.listeners.PlayerToggleSneakListener;
@@ -48,6 +49,8 @@ public final class WallJump extends JavaPlugin {
         for(Player player : Bukkit.getOnlinePlayers()) {
             playerManager.registerPlayer(player);
         }
+
+        new BStats(this, 10126);
 
         UpdateChecker updateChecker = new UpdateChecker(this);
         if(!config.getBoolean("ignoreUpdates"))
