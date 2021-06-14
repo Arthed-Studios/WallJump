@@ -15,12 +15,6 @@ public class LocationUtils {
         float distanceLimit = facing.distance;
 
         if(block.getType().isSolid()) {
-            /*boolean blacklisted = Config.blacklistedBlocks.contains(block.getType());
-            if(Config.reversedBlockBlacklist)
-                blacklisted = !blacklisted;
-
-            if(blacklisted)
-                return null;*/
             if(facing.equals(WallFace.EAST) || facing.equals(WallFace.WEST))
                 return Math.abs(location.getX() - block.getX()) < distanceLimit;
             else
