@@ -22,7 +22,7 @@ public class WPlayer {
 
     private BlockFace lastFacing;
     private Location lastJumpLocation;
-    private int remainingJumps;
+    private int remainingJumps = -1;
 
     private BukkitTask velocityTask;
     private BukkitTask fallTask;
@@ -38,7 +38,6 @@ public class WPlayer {
     }
 
     public void onWallJumpStart() {
-        Bukkit.broadcastMessage("AAAAA");
         if(
                 onWall || //player is already stuck to an wall
                 remainingJumps == 0 || //player reached jump limit
@@ -46,7 +45,7 @@ public class WPlayer {
                 (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) < config.getDouble("minimumDistance"))) //player is too close to the last jump location
 
             return;
-        Bukkit.broadcastMessage("BBBBB");
+
         //check if the block the player is wall jumping on is blacklisted
         WallFace wallFacing = WallFace.fromBlockFace(player.getFacing());
         boolean onBlacklistedBlock = config.getMaterialList("blacklistedBlocks").contains(
@@ -68,13 +67,12 @@ public class WPlayer {
                 (reverseWorldBlacklist && !inBlacklistedWorld))
             return;
 
-        Bukkit.broadcastMessage("CCCC");
-
 
         onWall = true;
         lastFacing = player.getFacing();
         lastJumpLocation = player.getLocation();
-        remainingJumps--;
+        if(remainingJumps > 0)
+            remainingJumps--;
 
         //play sound and spawn particles
         EffectUtils.playWallJumpSound(player, lastFacing, 0.3f, 1.2f);
@@ -145,12 +143,18 @@ public class WPlayer {
     private void reset() {
         lastFacing = null;
         remainingJumps = config.getInt("maxJumps");
+        if(remainingJumps == 0)
+            remainingJumps = -1;
         stopWallJumpingTask.cancel();
         stopWallJumpingTask = null;
     }
 
     public boolean isOnWall() {
         return onWall;
+    }
+
+    public boolean isSliding() {
+        return sliding;
     }
 
 }
