@@ -1,0 +1,76 @@
+#####################
+##     WallJump    ##
+#####################
+
+#Set how much the player will be pushed horizontally on each jump | Default: 0.30
+horizontalJumpPower: 0.30
+#Set how much the player will be pushed up on each jump | Default: 0.50
+verticalJumpPower: 0.50
+#Time in seconds a player can stay on a wall before they fall | Default: 0.7
+#Set to 0 to disable
+timeOnWall: 0.7
+#If the player stays too much on a wall, they will start slowly sliding down
+#If false, the player will just fall normally
+slide: true
+#The speed at which the player is sliding down | Default: 0.17
+slidingSpeed: 0.17
+#The amount of times the player can wall jump in a row Default: 0
+#Set to 0 to disable
+maxJumps: 0
+#The minimum distance the player needs to jump to be able to stick to another wall | Default: 0.3
+minimumDistance: 0.3
+#If true, players will need the permission "walljump.use" to wall jump
+needPermission: false
+
+
+#####################
+##    Blacklists   ##
+#####################
+
+#Block that players can't jump on
+blacklistedBlocks:
+   - ICE
+   - BLUE_ICE
+   - PACKED_ICE
+   - GLASS
+   - WHITE_STAINED_GLASS
+   - ORANGE_STAINED_GLASS
+   - MAGENTA_STAINED_GLASS
+   - LIGHT_BLUE_STAINED_GLASS
+   - YELLOW_STAINED_GLASS
+   - LIME_STAINED_GLASS
+   - PINK_STAINED_GLASS
+   - GRAY_STAINED_GLASS
+   - LIGHT_GRAY_STAINED_GLASS
+   - CYAN_STAINED_GLASS
+   - PURPLE_STAINED_GLASS
+   - BLUE_STAINED_GLASS
+   - BROWN_STAINED_GLASS
+   - GREEN_STAINED_GLASS
+   - RED_STAINED_GLASS
+   - BLACK_STAINED_GLASS
+   - CACTUS
+#If true, players will only be able to wall jump on blacklisted blocks
+reversedBlockBlacklist: false
+
+
+#Worlds in which players can't wall jump
+blacklistedWorlds:
+   - blacklisted_world
+#If true, players will only be able to wall jump in blacklisted worlds
+reversedWorldBlacklist: false
+
+
+#####################
+##      Other      ##
+#####################
+
+#The default value for the "walljump" world guard flag
+#If false, players will not be able to wall jump unless the region they are in allows them to | Default: true
+worldGuardFlagDefault: true
+
+#If true, players will be able to use the command /walljump or /wj to toggle wall jumping on and off | Default: false
+toggleCommand: false
+
+
+ignoreUpdates: false
