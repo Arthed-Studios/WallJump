@@ -1,11 +1,9 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 plugins {
     id 'java'
 }
 
 group = 'me.arthed.walljump'
-version = '1.0-SNAPSHOT'
+version = '2.0.0'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -20,14 +18,13 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        name = 'worldguard'
+        url = 'https://maven.enginehub.org/repo/'
+    }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-}
-
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
-    }
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT'
 }

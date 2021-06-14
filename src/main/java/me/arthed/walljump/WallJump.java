@@ -2,6 +2,7 @@ package me.arthed.walljump;
 
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.handlers.BStats;
+import me.arthed.walljump.handlers.WorldGuardHandler;
 import me.arthed.walljump.listeners.PlayerJoinListener;
 import me.arthed.walljump.listeners.PlayerQuitListener;
 import me.arthed.walljump.listeners.PlayerToggleSneakListener;
@@ -10,33 +11,35 @@ import me.arthed.walljump.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 public final class WallJump extends JavaPlugin {
 
     private static WallJump plugin;
-
     public static WallJump getInstance() {
         return plugin;
     }
 
     private PlayerManager playerManager;
-
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
 
     private WallJumpConfiguration config;
-
     public WallJumpConfiguration getWallJumpConfig() {
         return config;
+    }
+
+    private WorldGuardHandler worldGuard;
+    public WorldGuardHandler getWorldGuardHandler() {
+        return worldGuard;
     }
 
 
     @Override
     public void onEnable() {
-        plugin = this;
-        config = new WallJumpConfiguration("config.yml");
         playerManager = new PlayerManager();
 
         registerEvents(
@@ -55,6 +58,17 @@ public final class WallJump extends JavaPlugin {
         UpdateChecker updateChecker = new UpdateChecker(this);
         if(!config.getBoolean("ignoreUpdates"))
             updateChecker.checkUpdates();
+    }
+
+    @Override
+    public void onLoad() {
+        plugin = this;
+        config = new WallJumpConfiguration("config.yml");
+
+        Plugin worldGuardPlugin = getServer().getPluginManager().getPlugin("WorldGuard");
+        if(worldGuardPlugin != null) {
+            worldGuard = new WorldGuardHandler(worldGuardPlugin, this);
+        }
     }
 
     @Override

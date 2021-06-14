@@ -3,6 +3,7 @@ package me.arthed.walljump.player;
 import me.arthed.walljump.WallJump;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.enums.WallFace;
+import me.arthed.walljump.handlers.WorldGuardHandler;
 import me.arthed.walljump.utils.LocationUtils;
 import me.arthed.walljump.utils.EffectUtils;
 import me.arthed.walljump.utils.VelocityUtils;
@@ -30,11 +31,13 @@ public class WPlayer {
     private BukkitTask stopWallJumpingTask;
 
     private final WallJumpConfiguration config;
+    private final WorldGuardHandler worldGuard;
 
     protected WPlayer(Player player) {
         this.player = player;
 
         config = WallJump.getInstance().getWallJumpConfig();
+        worldGuard = WallJump.getInstance().getWorldGuardHandler();
     }
 
     public void onWallJumpStart() {
@@ -47,7 +50,8 @@ public class WPlayer {
                 (lastFacing != null && lastFacing.equals(player.getFacing())) || //player is facing the same direction as the last jump
                 (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
                 player.getVelocity().getY() < config.getDouble("maximumVelocity") || //player is falling too fast
-                (config.getBoolean("needPermission") && !player.hasPermission("walljump.use")) //player does not have the permission to wall-jump
+                (config.getBoolean("needPermission") && !player.hasPermission("walljump.use")) || //player does not have the permission to wall-jump
+                !worldGuard.canWallJump(player) //wall-jumping is not allowed in the region the player is in
         )
 
             return;
