@@ -1,5 +1,6 @@
 package me.arthed.walljump;
 
+import me.arthed.walljump.command.WallJumpCommand;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.handlers.BStats;
 import me.arthed.walljump.handlers.WorldGuardHandler;
@@ -47,6 +48,7 @@ public final class WallJump extends JavaPlugin {
                 new PlayerQuitListener(),
                 new PlayerToggleSneakListener()
         );
+        this.getCommand("walljump").setExecutor(new WallJumpCommand());
 
         //in case the plugin has been loaded while the server is running using plugman or any other similar methods, register all the online players
         for(Player player : Bukkit.getOnlinePlayers()) {

@@ -5,3 +5,6 @@ api-version: 1.16
 softdepend: [ WorldGuard ]
 authors: [ Arthed ]
 description: Adds an easy to understand, yet still challenging wall jump mechanic
+commands:
+  walljump:
+    aliases: [wj, wjump]

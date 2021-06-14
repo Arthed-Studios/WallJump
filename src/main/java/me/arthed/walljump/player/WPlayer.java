@@ -33,6 +33,8 @@ public class WPlayer {
     private final WallJumpConfiguration config;
     private final WorldGuardHandler worldGuard;
 
+    public boolean enabled;
+
     protected WPlayer(Player player) {
         this.player = player;
 
@@ -138,7 +140,8 @@ public class WPlayer {
             //used so height doesn't matter when calculating distance between the players location and the last jump location
             lastJumpLocation.setY(player.getLocation().getY());
         if(
-                onWall || //player is already stuck to an wall
+                        !enabled ||
+                        onWall || //player is already stuck to an wall
                         remainingJumps == 0 || //player reached jump limit
                         (lastFacing != null && lastFacing.equals(player.getFacing())) || //player is facing the same direction as the last jump
                         (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
