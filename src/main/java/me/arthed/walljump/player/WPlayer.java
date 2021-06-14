@@ -33,7 +33,7 @@ public class WPlayer {
     private final WallJumpConfiguration config;
     private final WorldGuardHandler worldGuard;
 
-    public boolean enabled;
+    public boolean enabled = true;
 
     protected WPlayer(Player player) {
         this.player = player;
