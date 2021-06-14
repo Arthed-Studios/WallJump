@@ -8,6 +8,7 @@ import me.arthed.walljump.listeners.PlayerJoinListener;
 import me.arthed.walljump.listeners.PlayerQuitListener;
 import me.arthed.walljump.listeners.PlayerToggleSneakListener;
 import me.arthed.walljump.player.PlayerManager;
+import me.arthed.walljump.player.WPlayer;
 import me.arthed.walljump.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,6 +32,11 @@ public final class WallJump extends JavaPlugin {
     private WallJumpConfiguration config;
     public WallJumpConfiguration getWallJumpConfig() {
         return config;
+    }
+
+    private WallJumpConfiguration dataConfig;
+    public WallJumpConfiguration getDataConfig() {
+        return dataConfig;
     }
 
     private WorldGuardHandler worldGuard;
@@ -66,6 +72,7 @@ public final class WallJump extends JavaPlugin {
     public void onLoad() {
         plugin = this;
         config = new WallJumpConfiguration("config.yml");
+        dataConfig = new WallJumpConfiguration("data.yml");
 
         Plugin worldGuardPlugin = getServer().getPluginManager().getPlugin("WorldGuard");
         if(worldGuardPlugin != null) {
@@ -75,6 +82,12 @@ public final class WallJump extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if(config.getBoolean("toggleCommand")) {
+            for (WPlayer wplayer : playerManager.getWPlayers()) {
+                dataConfig.set(wplayer.getPlayer().getUniqueId().toString(), wplayer.enabled);
+            }
+            dataConfig.save();
+        }
     }
 
     private void registerEvents(Listener... listeners) {

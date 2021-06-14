@@ -47,6 +47,14 @@ public class WallJumpConfiguration extends YamlConfiguration {
         }
     }
 
+    public void save() {
+        try {
+            save(configFile);
+        } catch(IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
     public Material getMaterial(String path) {
         if(data.containsKey(path))
             return (Material)data.get(path);

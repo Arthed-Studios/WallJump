@@ -65,7 +65,7 @@ public class WPlayer {
                 EffectUtils.spawnSlidingParticles(player, 2, lastFacing);
                 if(sliding) {
                     if (player.isOnGround() || LocationUtils.getBlockPlayerIsStuckOn(player, lastFacing).isPassable())
-                        onWallJumpEnd(false);                     
+                        onWallJumpEnd(false);
                     if (lastJumpLocation.getY() - player.getLocation().getY() >= 1.2) {
                         lastJumpLocation = player.getLocation();
                         EffectUtils.playWallJumpSound(player, lastFacing, 0.2f, 0.6f);
@@ -181,6 +181,10 @@ public class WPlayer {
 
     public boolean isSliding() {
         return sliding;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
 }
