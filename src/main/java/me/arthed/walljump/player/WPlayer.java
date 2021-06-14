@@ -59,6 +59,8 @@ public class WPlayer {
         //stop the player from falling and moving while on the wall
         //or make them slide down
         velocityY = 0;
+        if(BukkitUtils.isVersionBefore(BukkitUtils.Version.V1_8))
+            velocityY = 0.06f;
         velocityTask = Bukkit.getScheduler().runTaskTimerAsynchronously(WallJump.getInstance(), () -> {
             player.setVelocity(new Vector(0, velocityY, 0));
             if(velocityY != 0) {
