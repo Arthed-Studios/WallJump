@@ -9,7 +9,6 @@ import me.arthed.walljump.utils.EffectUtils;
 import me.arthed.walljump.utils.VelocityUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -21,7 +20,7 @@ public class WPlayer {
     private boolean onWall;
     private boolean sliding;
 
-    private BlockFace lastFacing;
+    private WallFace lastFacing;
     private Location lastJumpLocation;
     private int remainingJumps = -1;
 
@@ -47,7 +46,7 @@ public class WPlayer {
             return;
 
         onWall = true;
-        lastFacing = player.getFacing();
+        lastFacing = LocationUtils.getPlayerFacing(player);
         lastJumpLocation = player.getLocation();
         if(remainingJumps > 0)
             remainingJumps--;
@@ -136,6 +135,7 @@ public class WPlayer {
     }
 
     private boolean canWallJump() {
+        WallFace facing = LocationUtils.getPlayerFacing(player);
         if(lastJumpLocation != null)
             //used so height doesn't matter when calculating distance between the players location and the last jump location
             lastJumpLocation.setY(player.getLocation().getY());
@@ -143,7 +143,7 @@ public class WPlayer {
                         !enabled ||
                         onWall || //player is already stuck to an wall
                         remainingJumps == 0 || //player reached jump limit
-                        (lastFacing != null && lastFacing.equals(player.getFacing())) || //player is facing the same direction as the last jump
+                        (lastFacing != null && lastFacing.equals(facing)) || //player is facing the same direction as the last jump
                         (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
                         player.getVelocity().getY() < config.getDouble("maximumVelocity") || //player is falling too fast
                         (config.getBoolean("needPermission") && !player.hasPermission("walljump.use")) || //player does not have the permission to wall-jump
@@ -152,11 +152,10 @@ public class WPlayer {
 
             return false;
         //check if the block the player is wall jumping on is blacklisted
-        WallFace wallFacing = WallFace.fromBlockFace(player.getFacing());
         boolean onBlacklistedBlock = config.getMaterialList("blacklistedBlocks").contains(
-                player.getLocation().clone().add(wallFacing.xOffset,
-                        wallFacing.yOffset,
-                        wallFacing.zOffset)
+                player.getLocation().clone().add(facing.xOffset,
+                        facing.yOffset,
+                        facing.zOffset)
                         .getBlock()
                         .getType());
         boolean reverseBlockBlacklist = config.getBoolean("reversedBlockBlacklist");

@@ -95,11 +95,20 @@ public class NmsUtils {
                 return Sound.valueOf(soundString);
             }
 
-            Object soundEffectType = nmsBlock.getClass()
-                    .getMethod(
-                            "getStepSound",
-                            getNmsClass("IBlockData", "net.minecraft.world.level.block.state.IBlockData"))
-                    .invoke(nmsBlock, (Object)null);
+            Object soundEffectType;
+            if(BukkitUtils.isVersionBefore(Version.V1_13)) {
+                 soundEffectType = nmsBlock.getClass()
+                        .getMethod(
+                                "getStepSound")
+                        .invoke(nmsBlock);
+            }
+            else {
+                soundEffectType = nmsBlock.getClass()
+                        .getMethod(
+                                "getStepSound",
+                                getNmsClass("IBlockData", "net.minecraft.world.level.block.state.IBlockData"))
+                        .invoke(nmsBlock, (Object) null);
+            }
 
             Field sound = soundEffectType.getClass().getDeclaredField(fieldName);
             sound.setAccessible(true);
