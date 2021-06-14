@@ -54,6 +54,8 @@ public final class WallJump extends JavaPlugin {
                 new PlayerToggleSneakListener(),
                 new PlayerDamageListener()
         );
+        if(BukkitUtils.isVersionBefore(BukkitUtils.Version.V1_9))
+            Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
 
         this.getCommand("walljump").setExecutor(new WallJumpCommand());
 
