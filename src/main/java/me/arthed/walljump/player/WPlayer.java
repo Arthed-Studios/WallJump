@@ -42,7 +42,8 @@ public class WPlayer {
                 onWall || //player is already stuck to an wall
                 remainingJumps == 0 || //player reached jump limit
                 (lastFacing != null && lastFacing.equals(player.getFacing())) || //player is facing the same direction as the last jump
-                (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) < config.getDouble("minimumDistance"))) //player is too close to the last jump location
+                (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
+                player.getVelocity().getY() < config.getDouble("maximumVelocity")) //player is falling too fast
 
             return;
 

@@ -21,6 +21,8 @@ canJumpWhileSliding: true
 maxJumps: 0
 #The minimum distance the player needs to jump to be able to stick to another wall | Default: 0.3
 minimumDistance: 0.3
+#The maximum velocity for the player to be able to stick to a wall | Default: -1
+maximumVelocity: -1
 #If true, players will need the permission "walljump.use" to wall-jump
 needPermission: false
 
