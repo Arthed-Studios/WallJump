@@ -1,12 +1,8 @@
 package me.arthed.walljump.utils;
 
-import me.arthed.walljump.WallJump;
 import me.arthed.walljump.enums.WallFace;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 

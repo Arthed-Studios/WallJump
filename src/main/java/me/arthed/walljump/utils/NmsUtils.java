@@ -21,33 +21,59 @@ public class NmsUtils {
 
 
     public static Sound getBreakSoundForBlock(Block block) {
-        if(BukkitUtils.isVersionBefore(Version.V1_8))
-            return getSoundForBlock(block, "getBreakSound");
-        return getSoundForBlock(block, getBreakSoundFieldName());
+        try {
+            if (BukkitUtils.isVersionBefore(Version.V1_8))
+                return getSoundForBlock(block, "getBreakSound");
+            return getSoundForBlock(block, getBreakSoundFieldName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return Sound.BLOCK_STONE_BREAK;
     }
 
     public static Sound getStepSoundForBlock(Block block) {
-        if(BukkitUtils.isVersionBefore(Version.V1_8))
-            return getSoundForBlock(block, "getStepSound");
-        return getSoundForBlock(block, getStepSoundFieldName());
+        try {
+            if(BukkitUtils.isVersionBefore(Version.V1_8))
+                return getSoundForBlock(block, "getStepSound");
+            return getSoundForBlock(block, getStepSoundFieldName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return Sound.BLOCK_STONE_STEP;
     }
 
     public static Sound getPlaceSoundForBlock(Block block) {
-        if(BukkitUtils.isVersionBefore(Version.V1_8))
-            return getSoundForBlock(block, "getBreakSound");
-        return getSoundForBlock(block, getPlaceSoundFieldName());
+        try {
+            if (BukkitUtils.isVersionBefore(Version.V1_8))
+                return getSoundForBlock(block, "getBreakSound");
+            return getSoundForBlock(block, getPlaceSoundFieldName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return Sound.BLOCK_STONE_PLACE;
     }
 
     public static Sound getHitSoundForBlock(Block block) {
-        if(BukkitUtils.isVersionBefore(Version.V1_8))
-            return getSoundForBlock(block, "getStepSound");
-        return getSoundForBlock(block, getHitSoundFieldName());
+        try {
+            if (BukkitUtils.isVersionBefore(Version.V1_8))
+                return getSoundForBlock(block, "getStepSound");
+            return getSoundForBlock(block, getHitSoundFieldName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return Sound.BLOCK_STONE_HIT;
+
     }
 
     public static Sound getFallSoundForBlock(Block block) {
-        if(BukkitUtils.isVersionBefore(Version.V1_8))
-            return getSoundForBlock(block, "getStepSound");
-        return getSoundForBlock(block, getFallSoundFieldName());
+        try {
+            if (BukkitUtils.isVersionBefore(Version.V1_8))
+                return getSoundForBlock(block, "getStepSound");
+            return getSoundForBlock(block, getFallSoundFieldName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return Sound.BLOCK_STONE_FALL;
     }
 
     private static Sound getSoundForBlock(Block block, String fieldName) {
