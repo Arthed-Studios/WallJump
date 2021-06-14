@@ -43,7 +43,9 @@ public class WPlayer {
                 remainingJumps == 0 || //player reached jump limit
                 (lastFacing != null && lastFacing.equals(player.getFacing())) || //player is facing the same direction as the last jump
                 (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
-                player.getVelocity().getY() < config.getDouble("maximumVelocity")) //player is falling too fast
+                player.getVelocity().getY() < config.getDouble("maximumVelocity") || //player is falling too fast
+                (config.getBoolean("needPermission") && !player.hasPermission("walljump.use")) //player does not have the permission to wall-jump
+        )
 
             return;
 
