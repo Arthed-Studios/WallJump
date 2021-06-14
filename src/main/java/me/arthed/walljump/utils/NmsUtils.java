@@ -6,6 +6,8 @@ import org.bukkit.block.Block;
 import me.arthed.walljump.utils.BukkitUtils.Version;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Locale;
 
 public class NmsUtils {
 
@@ -88,27 +90,27 @@ public class NmsUtils {
                     .getMethod("getType", blockPosition.getClass())
                     .invoke(nmsWorld, blockPosition);
 
-            Object nmsBlock = nmsType.getClass().getMethod("getBlock").invoke(nmsType);
+            Method getBlockMethod = nmsType.getClass().getMethod("getBlock");
+            getBlockMethod.setAccessible(true);
+            Object nmsBlock = getBlockMethod.invoke(nmsType);
 
             if(BukkitUtils.isVersionBefore(Version.V1_8)) {
-                String soundString = (String) nmsBlock.getClass().getMethod(fieldName).invoke(nmsBlock);
-                return Sound.valueOf(soundString);
+                Object stepSound = nmsBlock.getClass().getField("stepSound").get(nmsBlock);
+                String soundString = (String) stepSound.getClass().getMethod(fieldName).invoke(stepSound);
+                return Sound.valueOf(soundString.toUpperCase().replace(".", "_"));
             }
-
-            Object soundEffectType;
-            if(BukkitUtils.isVersionBefore(Version.V1_13)) {
-                 soundEffectType = nmsBlock.getClass()
-                        .getMethod(
-                                "getStepSound")
-                        .invoke(nmsBlock);
+            Field stepSoundField = null;
+            Class<?> blockSuperClass = nmsBlock.getClass();
+            for(int i = 0; i < 5; i ++) {
+                try {
+                    stepSoundField = blockSuperClass.getDeclaredField("stepSound");
+                    break;
+                } catch(NoSuchFieldException noField) {
+                    blockSuperClass = blockSuperClass.getSuperclass();
+                }
             }
-            else {
-                soundEffectType = nmsBlock.getClass()
-                        .getMethod(
-                                "getStepSound",
-                                getNmsClass("IBlockData", "net.minecraft.world.level.block.state.IBlockData"))
-                        .invoke(nmsBlock, (Object) null);
-            }
+            stepSoundField.setAccessible(true);
+            Object soundEffectType = stepSoundField.get(nmsBlock);
 
             Field sound = soundEffectType.getClass().getDeclaredField(fieldName);
             sound.setAccessible(true);

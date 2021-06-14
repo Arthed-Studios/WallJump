@@ -4,11 +4,10 @@ import me.arthed.walljump.command.WallJumpCommand;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.handlers.BStats;
 import me.arthed.walljump.handlers.WorldGuardHandler;
-import me.arthed.walljump.listeners.PlayerJoinListener;
-import me.arthed.walljump.listeners.PlayerQuitListener;
-import me.arthed.walljump.listeners.PlayerToggleSneakListener;
+import me.arthed.walljump.listeners.*;
 import me.arthed.walljump.player.PlayerManager;
 import me.arthed.walljump.player.WPlayer;
+import me.arthed.walljump.utils.BukkitUtils;
 import me.arthed.walljump.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -52,8 +51,10 @@ public final class WallJump extends JavaPlugin {
         registerEvents(
                 new PlayerJoinListener(),
                 new PlayerQuitListener(),
-                new PlayerToggleSneakListener()
+                new PlayerToggleSneakListener(),
+                new PlayerDamageListener()
         );
+
         this.getCommand("walljump").setExecutor(new WallJumpCommand());
 
         //in case the plugin has been loaded while the server is running using plugman or any other similar methods, register all the online players

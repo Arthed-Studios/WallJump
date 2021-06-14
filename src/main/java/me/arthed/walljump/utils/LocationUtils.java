@@ -25,7 +25,7 @@ public class LocationUtils {
     }
 
     public static boolean isOnGround(Player player) {
-        return !player.getLocation().clone().subtract(0, 0.2, 0).getBlock().isPassable();
+        return player.getLocation().clone().subtract(0, 0.2, 0).getBlock().getType().isSolid();
     }
 
     public static Block getBlockPlayerIsStuckOn(Player player, WallFace facing) {

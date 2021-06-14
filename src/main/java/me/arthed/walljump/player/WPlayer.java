@@ -4,6 +4,7 @@ import me.arthed.walljump.WallJump;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.enums.WallFace;
 import me.arthed.walljump.handlers.WorldGuardHandler;
+import me.arthed.walljump.utils.BukkitUtils;
 import me.arthed.walljump.utils.LocationUtils;
 import me.arthed.walljump.utils.EffectUtils;
 import me.arthed.walljump.utils.VelocityUtils;
@@ -63,8 +64,11 @@ public class WPlayer {
             if(velocityY != 0) {
                 EffectUtils.spawnSlidingParticles(player, 2, lastFacing);
                 if(sliding) {
-                    if (player.isOnGround() || LocationUtils.getBlockPlayerIsStuckOn(player, lastFacing).isPassable())
+                    if (player.isOnGround() || !LocationUtils.getBlockPlayerIsStuckOn(player, lastFacing).getType().isSolid()) {
+                        player.setFallDistance(0);
+                        player.teleport(player.getLocation());
                         onWallJumpEnd(false);
+                    }
                     if (lastJumpLocation.getY() - player.getLocation().getY() >= 1.2) {
                         lastJumpLocation = player.getLocation();
                         EffectUtils.playWallJumpSound(player, lastFacing, 0.2f, 0.6f);
@@ -77,12 +81,13 @@ public class WPlayer {
         if(fallTask != null)
             fallTask.cancel();
         fallTask = Bukkit.getScheduler().runTaskLaterAsynchronously(WallJump.getInstance(), () -> {
-            if(config.getBoolean("slide")) {
-                velocityY = (float) -config.getDouble("slidingSpeed");
-                sliding = true;
+            if(onWall) {
+                if (config.getBoolean("slide")) {
+                    velocityY = (float) -config.getDouble("slidingSpeed");
+                    sliding = true;
+                } else
+                    onWallJumpEnd();
             }
-            else
-                onWallJumpEnd();
         }, (long)(config.getDouble("timeOnWall")*20));
 
         //cancel the task for resetting wall jumping if the player wall jumps
@@ -99,6 +104,7 @@ public class WPlayer {
     public void onWallJumpEnd(boolean jump) {
         onWall = false;
         sliding = false;
+
 
         //allow the player to move again
         player.setFallDistance(0);
@@ -130,7 +136,8 @@ public class WPlayer {
         remainingJumps = config.getInt("maxJumps");
         if(remainingJumps == 0)
             remainingJumps = -1;
-        stopWallJumpingTask.cancel();
+        if(stopWallJumpingTask != null)
+            stopWallJumpingTask.cancel();
         stopWallJumpingTask = null;
     }
 
