@@ -41,41 +41,8 @@ public class WPlayer {
     }
 
     public void onWallJumpStart() {
-        if(lastJumpLocation != null)
-            //used so height doesn't matter when calculating distance between the players location and the last jump location
-            lastJumpLocation.setY(player.getLocation().getY());
-        if(
-                onWall || //player is already stuck to an wall
-                remainingJumps == 0 || //player reached jump limit
-                (lastFacing != null && lastFacing.equals(player.getFacing())) || //player is facing the same direction as the last jump
-                (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
-                player.getVelocity().getY() < config.getDouble("maximumVelocity") || //player is falling too fast
-                (config.getBoolean("needPermission") && !player.hasPermission("walljump.use")) || //player does not have the permission to wall-jump
-                !worldGuard.canWallJump(player) //wall-jumping is not allowed in the region the player is in
-        )
-
+        if(!canWallJump())
             return;
-        //check if the block the player is wall jumping on is blacklisted
-        WallFace wallFacing = WallFace.fromBlockFace(player.getFacing());
-        boolean onBlacklistedBlock = config.getMaterialList("blacklistedBlocks").contains(
-                player.getLocation().clone().add(wallFacing.xOffset,
-                        wallFacing.yOffset,
-                        wallFacing.zOffset)
-                        .getBlock()
-                        .getType());
-        boolean reverseBlockBlacklist = config.getBoolean("reversedBlockBlacklist");
-        if((!reverseBlockBlacklist && onBlacklistedBlock) ||
-                (reverseBlockBlacklist && !onBlacklistedBlock))
-            return;
-
-        //check if the world the player is in is blacklisted
-        boolean inBlacklistedWorld = config.getWorldList("blacklistedWorlds").contains(
-                player.getWorld());
-        boolean reverseWorldBlacklist = config.getBoolean("reversedWorldBlacklist");
-        if((!reverseWorldBlacklist && inBlacklistedWorld) ||
-                (reverseWorldBlacklist && !inBlacklistedWorld))
-            return;
-
 
         onWall = true;
         lastFacing = player.getFacing();
@@ -158,11 +125,51 @@ public class WPlayer {
 
     private void reset() {
         lastFacing = null;
+        lastJumpLocation = null;
         remainingJumps = config.getInt("maxJumps");
         if(remainingJumps == 0)
             remainingJumps = -1;
         stopWallJumpingTask.cancel();
         stopWallJumpingTask = null;
+    }
+
+    private boolean canWallJump() {
+        if(lastJumpLocation != null)
+            //used so height doesn't matter when calculating distance between the players location and the last jump location
+            lastJumpLocation.setY(player.getLocation().getY());
+        if(
+                onWall || //player is already stuck to an wall
+                        remainingJumps == 0 || //player reached jump limit
+                        (lastFacing != null && lastFacing.equals(player.getFacing())) || //player is facing the same direction as the last jump
+                        (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
+                        player.getVelocity().getY() < config.getDouble("maximumVelocity") || //player is falling too fast
+                        (config.getBoolean("needPermission") && !player.hasPermission("walljump.use")) || //player does not have the permission to wall-jump
+                        !worldGuard.canWallJump(player) //wall-jumping is not allowed in the region the player is in
+        )
+
+            return false;
+        //check if the block the player is wall jumping on is blacklisted
+        WallFace wallFacing = WallFace.fromBlockFace(player.getFacing());
+        boolean onBlacklistedBlock = config.getMaterialList("blacklistedBlocks").contains(
+                player.getLocation().clone().add(wallFacing.xOffset,
+                        wallFacing.yOffset,
+                        wallFacing.zOffset)
+                        .getBlock()
+                        .getType());
+        boolean reverseBlockBlacklist = config.getBoolean("reversedBlockBlacklist");
+        if((!reverseBlockBlacklist && onBlacklistedBlock) ||
+                (reverseBlockBlacklist && !onBlacklistedBlock))
+            return false;
+
+        //check if the world the player is in is blacklisted
+        boolean inBlacklistedWorld = config.getWorldList("blacklistedWorlds").contains(
+                player.getWorld());
+        boolean reverseWorldBlacklist = config.getBoolean("reversedWorldBlacklist");
+        if((!reverseWorldBlacklist && inBlacklistedWorld) ||
+                (reverseWorldBlacklist && !inBlacklistedWorld))
+            return false;
+
+        return true;
     }
 
     public boolean isOnWall() {
