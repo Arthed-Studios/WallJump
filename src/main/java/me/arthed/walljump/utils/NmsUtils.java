@@ -131,9 +131,7 @@ public class NmsUtils {
 
     private static String getBreakSoundFieldName() {
         String soundFieldName = "aA"; //1.17
-        if(BukkitUtils.isPaper())
-            soundFieldName = "breakSound";
-        else if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "o";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "q";
@@ -141,16 +139,18 @@ public class NmsUtils {
             soundFieldName = "y";
         else if(BukkitUtils.isVersionBefore(Version.V1_15))
             soundFieldName = "z";
-        else if(BukkitUtils.isVersionBefore(Version.V1_16))
-            soundFieldName = "X";
+        else if(BukkitUtils.isVersionBefore(Version.V1_16)) {
+            if(BukkitUtils.isPaper())
+                soundFieldName = "breakSound";
+            else
+                soundFieldName = "X";
+        }
         return soundFieldName;
     }
 
     private static String getStepSoundFieldName() {
         String soundFieldName = "aB"; //1.17
-        if(BukkitUtils.isPaper())
-            soundFieldName = "stepSound";
-        else if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "p";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "r";
@@ -158,16 +158,18 @@ public class NmsUtils {
             soundFieldName = "z";
         else if(BukkitUtils.isVersionBefore(Version.V1_15))
             soundFieldName = "A";
-        else if(BukkitUtils.isVersionBefore(Version.V1_16))
-            soundFieldName = "Y";
+        else if(BukkitUtils.isVersionBefore(Version.V1_16)) {
+            if(BukkitUtils.isPaper())
+                soundFieldName = "stepSound";
+            else
+                soundFieldName = "Y";
+        }
         return soundFieldName;
     }
 
     private static String getPlaceSoundFieldName() {
         String soundFieldName = "aC"; //1.17
-        if(BukkitUtils.isPaper())
-            soundFieldName = "placeSound";
-        else if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "q";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "s";
@@ -175,16 +177,18 @@ public class NmsUtils {
             soundFieldName = "A";
         else if(BukkitUtils.isVersionBefore(Version.V1_15))
             soundFieldName = "B";
-        else if(BukkitUtils.isVersionBefore(Version.V1_16))
-            soundFieldName = "Z";
+        else if(BukkitUtils.isVersionBefore(Version.V1_16)) {
+            if(BukkitUtils.isPaper())
+                soundFieldName = "placeSound";
+            else
+                soundFieldName = "Z";
+        }
         return soundFieldName;
     }
 
     private static String getHitSoundFieldName() {
         String soundFieldName = "aD"; //1.17
-        if(BukkitUtils.isPaper())
-            soundFieldName = "hitSound";
-        else if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "r";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "t";
@@ -192,16 +196,18 @@ public class NmsUtils {
             soundFieldName = "B";
         else if(BukkitUtils.isVersionBefore(Version.V1_15))
             soundFieldName = "C";
-        else if(BukkitUtils.isVersionBefore(Version.V1_16))
-            soundFieldName = "aa";
+        else if(BukkitUtils.isVersionBefore(Version.V1_16)) {
+            if(BukkitUtils.isPaper())
+                soundFieldName = "hitSound";
+            else
+                soundFieldName = "aa";
+        }
         return soundFieldName;
     }
 
     private static String getFallSoundFieldName() {
         String soundFieldName = "aE"; //1.17
-        if(BukkitUtils.isPaper())
-            soundFieldName = "fallSound";
-        else if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "s";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "u";
@@ -209,8 +215,12 @@ public class NmsUtils {
             soundFieldName = "C";
         else if(BukkitUtils.isVersionBefore(Version.V1_15))
             soundFieldName = "D";
-        else if(BukkitUtils.isVersionBefore(Version.V1_16))
-            soundFieldName = "ab";
+        else if(BukkitUtils.isVersionBefore(Version.V1_16)) {
+            if(BukkitUtils.isPaper())
+                soundFieldName = "fallSound";
+            else
+                soundFieldName = "ab";
+        }
         return soundFieldName;
     }
 
