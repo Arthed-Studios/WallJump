@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class LocationUtils {
 
     public static boolean isTouchingAWall(Player player) {
-        WallFace facing = WallFace.fromBlockFace(player.getFacing());
+        WallFace facing = getPlayerFacing(player);
 
         Location location = player.getLocation();
         Block block = location.clone().add(facing.xOffset, facing.yOffset, facing.zOffset).getBlock();
