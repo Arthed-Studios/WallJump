@@ -147,7 +147,7 @@ public class WPlayer {
                         (lastJumpLocation != null && player.getLocation().distance(lastJumpLocation) <= config.getDouble("minimumDistance")) ||  //player is too close to the last jump location
                         player.getVelocity().getY() < config.getDouble("maximumVelocity") || //player is falling too fast
                         (config.getBoolean("needPermission") && !player.hasPermission("walljump.use")) || //player does not have the permission to wall-jump
-                        !worldGuard.canWallJump(player) //wall-jumping is not allowed in the region the player is in
+                        (worldGuard != null && !worldGuard.canWallJump(player)) //wall-jumping is not allowed in the region the player is in
         )
 
             return false;
