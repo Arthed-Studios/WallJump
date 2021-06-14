@@ -38,6 +38,9 @@ public class WPlayer {
     }
 
     public void onWallJumpStart() {
+        if(lastJumpLocation != null)
+            //used so height doesn't matter when calculating distance between the players location and the last jump location
+            lastJumpLocation.setY(player.getLocation().getY());
         if(
                 onWall || //player is already stuck to an wall
                 remainingJumps == 0 || //player reached jump limit
@@ -48,7 +51,6 @@ public class WPlayer {
         )
 
             return;
-
         //check if the block the player is wall jumping on is blacklisted
         WallFace wallFacing = WallFace.fromBlockFace(player.getFacing());
         boolean onBlacklistedBlock = config.getMaterialList("blacklistedBlocks").contains(
