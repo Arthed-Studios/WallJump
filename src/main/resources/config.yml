@@ -6,22 +6,22 @@
 horizontalJumpPower: 0.30
 #Set how much the player will be pushed up on each jump | Default: 0.50
 verticalJumpPower: 0.50
-#Time in seconds a player can stay on a wall before they fall | Default: 0.7
+#Time in seconds a player can stay on a wall before they fall | Default: 0.6
 #Set to 0 to disable
-timeOnWall: 0.7
+timeOnWall: 0.6
 #If the player stays too much on a wall, they will start slowly sliding down
 #If false, the player will just fall normally
 slide: true
 #The speed at which the player is sliding down | Default: 0.17
 slidingSpeed: 0.17
-#If true, player will be pushed up when they release shift, even if they are sliding
+#If true, the player will be pushed up when they release shift, even if they are sliding
 canJumpWhileSliding: true
 #The amount of times the player can wall jump in a row Default: 0
 #Set to 0 to disable
 maxJumps: 0
 #The minimum distance the player needs to jump to be able to stick to another wall | Default: 0.3
 minimumDistance: 0.3
-#If true, players will need the permission "walljump.use" to wall jump
+#If true, players will need the permission "walljump.use" to wall-jump
 needPermission: false
 
 
@@ -29,7 +29,7 @@ needPermission: false
 ##    Blacklists   ##
 #####################
 
-#Block that players can't jump on
+#Block that players can't wall-jump on
 blacklistedBlocks:
    - ICE
    - BLUE_ICE
@@ -52,14 +52,14 @@ blacklistedBlocks:
    - RED_STAINED_GLASS
    - BLACK_STAINED_GLASS
    - CACTUS
-#If true, players will only be able to wall jump on blacklisted blocks
+#If true, players will only be able to wall-jump on blacklisted blocks
 reversedBlockBlacklist: false
 
 
-#Worlds in which players can't wall jump
+#Worlds in which players can't wall-jump
 blacklistedWorlds:
    - blacklisted_world
-#If true, players will only be able to wall jump in blacklisted worlds
+#If true, players will only be able to wall-jump in blacklisted worlds
 reversedWorldBlacklist: false
 
 
@@ -68,10 +68,10 @@ reversedWorldBlacklist: false
 #####################
 
 #The default value for the "walljump" world guard flag
-#If false, players will not be able to wall jump unless the region they are in allows them to | Default: true
+#If false, players will not be able to wall-jump unless the region they are in allows them to | Default: true
 worldGuardFlagDefault: true
 
-#If true, players will be able to use the command /walljump or /wj to toggle wall jumping on and off | Default: false
+#If true, players will be able to use the command /walljump or /wj to toggle wall-jumping on and off | Default: false
 toggleCommand: false
 
 
