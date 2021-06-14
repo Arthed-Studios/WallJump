@@ -89,7 +89,7 @@ public class WorldGuardHandler {
                 StateFlag flag = new StateFlag("wall-jump", WallJump.getInstance().getConfig().getBoolean("worldGuardFlagDefault"));
                 registry.register(flag);
                 ALLOW_WALL_JUMP = flag;
-            } catch (FlagConflictException e) {
+            } catch (Exception e) {
                 Flag<?> existing = registry.get("wall-jump");
                 if (existing instanceof StateFlag) {
                     ALLOW_WALL_JUMP = (StateFlag) existing;
