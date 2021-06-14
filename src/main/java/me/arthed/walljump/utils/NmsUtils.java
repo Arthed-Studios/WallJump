@@ -131,7 +131,9 @@ public class NmsUtils {
 
     private static String getBreakSoundFieldName() {
         String soundFieldName = "aA"; //1.17
-        if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isPaper())
+            soundFieldName = "breakSound";
+        else if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "o";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "q";
@@ -146,7 +148,9 @@ public class NmsUtils {
 
     private static String getStepSoundFieldName() {
         String soundFieldName = "aB"; //1.17
-        if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isPaper())
+            soundFieldName = "stepSound";
+        else if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "p";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "r";
@@ -161,7 +165,9 @@ public class NmsUtils {
 
     private static String getPlaceSoundFieldName() {
         String soundFieldName = "aC"; //1.17
-        if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isPaper())
+            soundFieldName = "placeSound";
+        else if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "q";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "s";
@@ -176,7 +182,9 @@ public class NmsUtils {
 
     private static String getHitSoundFieldName() {
         String soundFieldName = "aD"; //1.17
-        if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isPaper())
+            soundFieldName = "hitSound";
+        else if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "r";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "t";
@@ -191,7 +199,9 @@ public class NmsUtils {
 
     private static String getFallSoundFieldName() {
         String soundFieldName = "aE"; //1.17
-        if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitUtils.isPaper())
+            soundFieldName = "fallSound";
+        else if(BukkitUtils.isVersionBefore(Version.V1_12))
             soundFieldName = "s";
         else if(BukkitUtils.isVersionBefore(Version.V1_13))
             soundFieldName = "u";

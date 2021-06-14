@@ -26,6 +26,10 @@ public class BukkitUtils {
         return currentVersionInt >= version.versionInt;
     }
 
+    public static boolean isPaper() {
+        return Bukkit.getVersion().contains("Paper");
+    }
+
     public enum Version {
 
         V1_8(8),
