@@ -5,6 +5,7 @@ import me.arthed.walljump.listeners.PlayerJoinListener;
 import me.arthed.walljump.listeners.PlayerQuitListener;
 import me.arthed.walljump.listeners.PlayerToggleSneakListener;
 import me.arthed.walljump.player.PlayerManager;
+import me.arthed.walljump.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -34,9 +35,7 @@ public final class WallJump extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-
         config = new WallJumpConfiguration("config.yml");
-
         playerManager = new PlayerManager();
 
         registerEvents(
@@ -49,6 +48,10 @@ public final class WallJump extends JavaPlugin {
         for(Player player : Bukkit.getOnlinePlayers()) {
             playerManager.registerPlayer(player);
         }
+
+        UpdateChecker updateChecker = new UpdateChecker(this);
+        if(!config.getBoolean("ignoreUpdates"))
+            updateChecker.checkUpdates();
     }
 
     @Override
