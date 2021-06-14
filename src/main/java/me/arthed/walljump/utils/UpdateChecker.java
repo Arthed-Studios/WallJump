@@ -6,9 +6,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Level;
-
-import me.arthed.walljump.WallJump;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -54,7 +51,7 @@ public class UpdateChecker implements Listener {
                     update = false;
                 } else {
                     update = true;
-                    WallJump.getInstance().getLogger().log(Level.WARNING, ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
                     for(Player p : Bukkit.getOnlinePlayers()) {
                         if(p.isOp()) {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
