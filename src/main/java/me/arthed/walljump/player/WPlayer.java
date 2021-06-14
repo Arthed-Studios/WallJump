@@ -125,11 +125,12 @@ public class WPlayer {
         //player.setGravity(true);
         velocityTask.cancel();
 
-        if(velocityY == 0)
+        //if the player is not sliding or can jump while sliding
+        if(velocityY == 0 || config.getBoolean("canJumpWhileSliding"))
             //push the player in the direction that they are looking
             VelocityUtils.pushPlayerInFront(player,
-                    (float)config.getDouble("horizontalJumpPower"),
-                    (float)config.getDouble("verticalJumpPower"));
+                    (float) config.getDouble("horizontalJumpPower"),
+                    (float) config.getDouble("verticalJumpPower"));
 
         //after 1.5 seconds, if the player hasn't wall jumped again, reset everything
         Bukkit.getScheduler().runTaskLaterAsynchronously(WallJump.getInstance(), () -> {

@@ -14,6 +14,8 @@ timeOnWall: 0.7
 slide: true
 #The speed at which the player is sliding down | Default: 0.17
 slidingSpeed: 0.17
+#If true, player will be pushed up when they release shift, even if they are sliding
+canJumpWhileSliding: true
 #The amount of times the player can wall jump in a row Default: 0
 #Set to 0 to disable
 maxJumps: 0
