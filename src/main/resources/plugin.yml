@@ -1,7 +1,7 @@
 name: WallJump
 version: 2.0.0
 main: me.arthed.walljump.WallJump
-api-version: 1.16
+api-version: 1.13
 softdepend: [ WorldGuard ]
 authors: [ Arthed ]
 description: Adds an easy to understand, yet still challenging wall jump mechanic
