@@ -3,6 +3,7 @@ package me.arthed.walljump.utils;
 import me.arthed.walljump.enums.WallFace;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
 public class LocationUtils {
@@ -26,6 +27,11 @@ public class LocationUtils {
 
     public static boolean isOnGround(Player player) {
         return !player.getLocation().clone().subtract(0, 0.2, 0).getBlock().isPassable();
+    }
+
+    public static Block getBlockPlayerIsStuckOn(Player player, BlockFace facing) {
+        WallFace wallFacing = WallFace.fromBlockFace(facing);
+        return player.getLocation().clone().add(wallFacing.xOffset, wallFacing.yOffset, wallFacing.zOffset).getBlock();
     }
 
 

@@ -22,11 +22,10 @@ public class EffectUtils {
     }
 
     public static void playWallJumpSound(Player player, BlockFace facing, float volume, float pitch) {
-        WallFace wallFacing = WallFace.fromBlockFace(facing);
         player.getWorld().playSound(
                 player.getLocation(),
                 NmsUtils.getStepSoundForBlock(
-                        player.getLocation().clone().add(wallFacing.xOffset, wallFacing.yOffset, wallFacing.zOffset).getBlock()),
+                        LocationUtils.getBlockPlayerIsStuckOn(player, facing)),
                 volume,
                 pitch
         );
