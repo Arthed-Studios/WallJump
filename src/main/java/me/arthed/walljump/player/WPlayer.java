@@ -86,8 +86,10 @@ public class WPlayer {
             if(velocityY != 0) {
                 EffectUtils.spawnSlidingParticles(player, 2, lastFacing);
                 if(sliding) {
-                    if (player.isOnGround())
+                    if (player.isOnGround()) {
                         onWallJumpEnd();
+                        player.setFallDistance(0);
+                    }
                     if (lastJumpLocation.getY() - player.getLocation().getY() >= 1.2) {
                         lastJumpLocation = player.getLocation();
                         EffectUtils.playWallJumpSound(player, lastFacing, 0.2f, 0.6f);

@@ -1,7 +1,6 @@
 package me.arthed.walljump;
 
 import me.arthed.walljump.config.WallJumpConfiguration;
-import me.arthed.walljump.listeners.PlayerDamageListener;
 import me.arthed.walljump.listeners.PlayerJoinListener;
 import me.arthed.walljump.listeners.PlayerQuitListener;
 import me.arthed.walljump.listeners.PlayerToggleSneakListener;
@@ -43,8 +42,7 @@ public final class WallJump extends JavaPlugin {
         registerEvents(
                 new PlayerJoinListener(),
                 new PlayerQuitListener(),
-                new PlayerToggleSneakListener(),
-                new PlayerDamageListener()
+                new PlayerToggleSneakListener()
         );
 
         //in case the plugin has been loaded while the server is running using plugman or any other similar methods, register all the online players
