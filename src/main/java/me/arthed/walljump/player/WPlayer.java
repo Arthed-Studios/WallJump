@@ -87,10 +87,8 @@ public class WPlayer {
             if(velocityY != 0) {
                 EffectUtils.spawnSlidingParticles(player, 2, lastFacing);
                 if(sliding) {
-                    if (player.isOnGround()) {
-                        onWallJumpEnd();
-                        player.setFallDistance(0);
-                    }
+                    if (player.isOnGround())
+                        onWallJumpEnd(false);
                     if (lastJumpLocation.getY() - player.getLocation().getY() >= 1.2) {
                         lastJumpLocation = player.getLocation();
                         EffectUtils.playWallJumpSound(player, lastFacing, 0.2f, 0.6f);
@@ -119,15 +117,21 @@ public class WPlayer {
     }
 
     public void onWallJumpEnd() {
+        onWallJumpEnd(true);
+    }
+
+    public void onWallJumpEnd(boolean jump) {
         onWall = false;
         sliding = false;
 
         //allow the player to move again
-        //player.setGravity(true);
+        player.setFallDistance(0);
         velocityTask.cancel();
 
-        //if the player is not sliding or can jump while sliding
-        if(velocityY == 0 || config.getBoolean("canJumpWhileSliding"))
+        //if the player is not sliding or can jump while sliding and is not looking down
+        if(jump &&
+                ((velocityY == 0 && player.getLocation().getPitch() < 85) ||
+                (config.getBoolean("canJumpWhileSliding") && player.getLocation().getPitch() < 60)))
             //push the player in the direction that they are looking
             VelocityUtils.pushPlayerInFront(player,
                     (float) config.getDouble("horizontalJumpPower"),
