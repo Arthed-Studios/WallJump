@@ -27,7 +27,12 @@ public class BukkitUtils {
     }
 
     public static boolean isPaper() {
-        return Bukkit.getVersion().contains("Paper");
+        try {
+            Class.forName("com.destroystokyo.paper.ParticleBuilder");
+            return true;
+        } catch (ClassNotFoundException notPaper) {
+            return false;
+        }
     }
 
     public enum Version {
