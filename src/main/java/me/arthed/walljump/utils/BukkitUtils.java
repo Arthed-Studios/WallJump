@@ -1,6 +1,8 @@
 package me.arthed.walljump.utils;
 
+import me.arthed.walljump.WallJump;
 import org.bukkit.Bukkit;
+import org.bukkit.block.data.type.Wall;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +35,10 @@ public class BukkitUtils {
         } catch (ClassNotFoundException notPaper) {
             return false;
         }
+    }
+
+    public static boolean isPluginInstalled(String pluginName) {
+        return Bukkit.getPluginManager().getPlugin(pluginName) != null;
     }
 
     public enum Version {

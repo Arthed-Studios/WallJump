@@ -15,11 +15,11 @@ public class AntiCheatUtils {
     public AntiCheatUtils() {
         instance = this;
         WallJump wallJump = WallJump.getInstance();
-        if(wallJump.getServer().getPluginManager().getPlugin("Spartan") != null)
+        if(BukkitUtils.isPluginInstalled("Spartan"))
             antiCheatHandler = new SpartanHandler();
-        else if(wallJump.getServer().getPluginManager().getPlugin("AAC") != null)
+        else if(BukkitUtils.isPluginInstalled("AAC"))
             antiCheatHandler = new AACHandler();
-        else if(wallJump.getServer().getPluginManager().getPlugin("NoCheatPlus") != null)
+        else if(BukkitUtils.isPluginInstalled("NoCheatPlus"))
             antiCheatHandler = new NoCheatPlusHandler();
         else
             antiCheatHandler = null;
