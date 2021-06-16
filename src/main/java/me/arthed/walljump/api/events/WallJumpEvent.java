@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class WallJumpEvent extends PlayerEvent implements Cancellable {
 
+    private static final HandlerList handlers = new HandlerList();;
     private final WPlayer wplayer;
 
     private boolean cancelled;
@@ -34,6 +35,6 @@ public abstract class WallJumpEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return handlers;
     }
 }
