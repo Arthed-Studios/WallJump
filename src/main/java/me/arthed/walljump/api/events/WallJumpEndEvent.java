@@ -5,26 +5,28 @@ import org.jetbrains.annotations.NotNull;
 
 public class WallJumpEndEvent extends WallJumpEvent {
 
-    private float horizontalPower;
-    private float verticalPower;
+    private double horizontalPower;
+    private double verticalPower;
 
-    public WallJumpEndEvent(@NotNull WPlayer who, float horizontalPower, float verticalPower) {
+    public WallJumpEndEvent(@NotNull WPlayer who, double horizontalPower, double verticalPower) {
         super(who);
+        this.horizontalPower = horizontalPower;
+        this.verticalPower = verticalPower;
     }
 
-    public float getHorizontalPower() {
+    public double getHorizontalPower() {
         return horizontalPower;
     }
 
-    public float getVerticalPower() {
+    public double getVerticalPower() {
         return verticalPower;
     }
 
-    public void setHorizontalPower(float power) {
+    public void setHorizontalPower(double power) {
         this.horizontalPower = power;
     }
 
-    public void setVerticalPower(float power) {
+    public void setVerticalPower(double power) {
         this.verticalPower = power;
     }
 }

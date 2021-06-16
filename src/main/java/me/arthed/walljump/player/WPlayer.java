@@ -18,6 +18,7 @@ public class WPlayer {
 
     private final Player player;
 
+    private boolean wallJumping;
     private boolean onWall;
     private boolean sliding;
 
@@ -52,6 +53,7 @@ public class WPlayer {
             return;
 
         onWall = true;
+        wallJumping = true;
         lastFacing = LocationUtils.getPlayerFacing(player);
         lastJumpLocation = player.getLocation();
         if(remainingJumps > 0)
@@ -78,8 +80,8 @@ public class WPlayer {
                         Bukkit.getScheduler().runTask(WallJump.getInstance(), () -> {
                             player.setFallDistance(0);
                             player.teleport(player.getLocation());
+                            onWallJumpEnd(false);
                         });
-                        onWallJumpEnd(false);
                     }
                     if (lastJumpLocation.getY() - player.getLocation().getY() >= 1.2) {
                         lastJumpLocation = player.getLocation();
@@ -97,8 +99,9 @@ public class WPlayer {
                 if (config.getBoolean("slide")) {
                     velocityY = (float) -config.getDouble("slidingSpeed");
                     sliding = true;
-                } else
-                    onWallJumpEnd();
+                } else {
+                    Bukkit.getScheduler().runTask(WallJump.getInstance(), (Runnable) this::onWallJumpEnd);
+                }
             }
         }, (long)(config.getDouble("timeOnWall")*20));
 
@@ -125,12 +128,10 @@ public class WPlayer {
         velocityTask.cancel();
 
         //call event
-        WallJumpEndEvent event = new WallJumpEndEvent(this,
-                (float) config.getDouble("horizontalJumpPower"),
-                (float) config.getDouble("verticalJumpPower"));
+        WallJumpEndEvent event = new WallJumpEndEvent(this, config.getDouble("horizontalJumpPower"), config.getDouble("verticalJumpPower"));
         Bukkit.getPluginManager().callEvent(event);
         //if the player is not sliding or can jump while sliding and is not looking down
-        if(jump && !event.isCancelled() &&
+        if(jump &&// !event.isCancelled() &&
                 ((velocityY == 0 && player.getLocation().getPitch() < 85) ||
                 (config.getBoolean("canJumpWhileSliding") && player.getLocation().getPitch() < 60)))
             //push the player in the direction that they are looking
@@ -150,6 +151,8 @@ public class WPlayer {
     }
 
     private void reset() {
+        wallJumping = false;
+
         lastFacing = null;
         lastJumpLocation = null;
         remainingJumps = config.getInt("maxJumps");
@@ -158,8 +161,10 @@ public class WPlayer {
         if(stopWallJumpingTask != null)
             stopWallJumpingTask.cancel();
         stopWallJumpingTask = null;
-        WallJumpResetEvent event = new WallJumpResetEvent(this);
-        Bukkit.getPluginManager().callEvent(event);
+        Bukkit.getScheduler().runTask(WallJump.getInstance(), () -> {
+            WallJumpResetEvent event = new WallJumpResetEvent(this);
+            Bukkit.getPluginManager().callEvent(event);
+        });
     }
 
     public boolean canWallJump() {
@@ -204,6 +209,10 @@ public class WPlayer {
 
     public boolean isOnWall() {
         return onWall;
+    }
+
+    public boolean isWallJumping() {
+        return wallJumping;
     }
 
     public boolean isSliding() {
