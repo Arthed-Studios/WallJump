@@ -4,10 +4,7 @@ import me.arthed.walljump.WallJump;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.enums.WallFace;
 import me.arthed.walljump.handlers.WorldGuardHandler;
-import me.arthed.walljump.utils.BukkitUtils;
-import me.arthed.walljump.utils.LocationUtils;
-import me.arthed.walljump.utils.EffectUtils;
-import me.arthed.walljump.utils.VelocityUtils;
+import me.arthed.walljump.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -52,6 +49,9 @@ public class WPlayer {
         if(remainingJumps > 0)
             remainingJumps--;
 
+        //Stop some anti cheat checks that might be caused by wall-jumping
+        AntiCheatUtils.stopPotentialAntiCheatChecks(player);
+
         //play sound and spawn particles
         EffectUtils.playWallJumpSound(player, lastFacing, 0.3f, 1.2f);
         EffectUtils.spawnSlidingParticles(player, 5, lastFacing);
@@ -67,8 +67,10 @@ public class WPlayer {
                 EffectUtils.spawnSlidingParticles(player, 2, lastFacing);
                 if(sliding) {
                     if (player.isOnGround() || !LocationUtils.getBlockPlayerIsStuckOn(player, lastFacing).getType().isSolid()) {
-                        player.setFallDistance(0);
-                        player.teleport(player.getLocation());
+                        Bukkit.getScheduler().runTask(WallJump.getInstance(), () -> {
+                            player.setFallDistance(0);
+                            player.teleport(player.getLocation());
+                        });
                         onWallJumpEnd(false);
                     }
                     if (lastJumpLocation.getY() - player.getLocation().getY() >= 1.2) {
@@ -104,6 +106,8 @@ public class WPlayer {
     }
 
     public void onWallJumpEnd(boolean jump) {
+        AntiCheatUtils.restartPotentialAntiCheatChecks(player);
+
         onWall = false;
         sliding = false;
 
