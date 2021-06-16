@@ -4,6 +4,7 @@ import me.arthed.walljump.api.WallJumpAPI;
 import me.arthed.walljump.command.WallJumpCommand;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.handlers.BStats;
+import me.arthed.walljump.handlers.OtherPluginsHandler;
 import me.arthed.walljump.handlers.WorldGuardHandler;
 import me.arthed.walljump.listeners.*;
 import me.arthed.walljump.player.PlayerManager;
@@ -59,7 +60,8 @@ public final class WallJump extends JavaPlugin {
                 new PlayerJoinListener(),
                 new PlayerQuitListener(),
                 new PlayerToggleSneakListener(),
-                new PlayerDamageListener()
+                new PlayerDamageListener(),
+                new OtherPluginsHandler()
         );
 
         this.getCommand("walljump").setExecutor(new WallJumpCommand());

@@ -6,6 +6,7 @@ import me.arthed.walljump.player.WPlayer;
 import me.arthed.walljump.utils.LocationUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
@@ -13,7 +14,7 @@ public class PlayerToggleSneakListener implements Listener {
 
     private final PlayerManager playerManager = WallJump.getInstance().getPlayerManager();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
         Player player = event.getPlayer();
         if(!player.isFlying()) {
