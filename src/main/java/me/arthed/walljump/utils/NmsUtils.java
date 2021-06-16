@@ -99,10 +99,13 @@ public class NmsUtils {
                 return Sound.valueOf(soundString.toUpperCase().replace(".", "_"));
             }
             Field stepSoundField = null;
+            String stepSoundFieldName = "stepSound";
+            if(BukkitUtils.isVersionAfter(Version.V1_17))
+                stepSoundFieldName = "aK";
             Class<?> blockSuperClass = nmsBlock.getClass();
             for(int i = 0; i < 5; i ++) {
                 try {
-                    stepSoundField = blockSuperClass.getDeclaredField("stepSound");
+                    stepSoundField = blockSuperClass.getDeclaredField(stepSoundFieldName);
                     break;
                 } catch(NoSuchFieldException noField) {
                     blockSuperClass = blockSuperClass.getSuperclass();
