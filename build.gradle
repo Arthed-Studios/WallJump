@@ -26,6 +26,10 @@ repositories {
         name 'aac'
         url 'https://repo.janmm14.de/repository/public'
     }
+    maven {
+        name 'nocheatplus'
+        url 'https://repo.md-5.net/content/repositories/snapshots/'
+    }
 }
 
 dependencies {
@@ -34,5 +38,6 @@ dependencies {
     compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT'
 
     compileOnly 'de.janmm14:aac-api:5.0.0'
+    compileOnly 'fr.neatmonster:nocheatplus:3.16.1-SNAPSHOT'
     compileOnly files('libs/SpartanAPI.jar')
 }
