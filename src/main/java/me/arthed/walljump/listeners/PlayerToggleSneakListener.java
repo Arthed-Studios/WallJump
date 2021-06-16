@@ -4,7 +4,6 @@ import me.arthed.walljump.WallJump;
 import me.arthed.walljump.player.PlayerManager;
 import me.arthed.walljump.player.WPlayer;
 import me.arthed.walljump.utils.LocationUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

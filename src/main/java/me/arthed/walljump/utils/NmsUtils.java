@@ -7,7 +7,6 @@ import me.arthed.walljump.utils.BukkitUtils.Version;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Locale;
 
 public class NmsUtils {
 

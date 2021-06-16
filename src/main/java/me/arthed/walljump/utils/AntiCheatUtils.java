@@ -4,11 +4,7 @@ import me.arthed.walljump.WallJump;
 import me.arthed.walljump.handlers.anticheats.AACHandler;
 import me.arthed.walljump.handlers.anticheats.AntiCheatHandler;
 import me.arthed.walljump.handlers.anticheats.SpartanHandler;
-import me.konsolas.aac.api.AACAPI;
-import me.vagdedes.spartan.system.Enums;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import me.vagdedes.spartan.api.API;
 
 public class AntiCheatUtils {
 

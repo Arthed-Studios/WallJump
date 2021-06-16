@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class WallJumpConfiguration extends YamlConfiguration {
 
-    private File configFile;
+    private final File configFile;
     private Map<String, Object> data;
 
     public WallJumpConfiguration(String fileName) {
@@ -40,7 +40,6 @@ public class WallJumpConfiguration extends YamlConfiguration {
     public void reload() {
         try {
             load(configFile);
-            //data = config.getValues(true);
             data = new HashMap<>();
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();

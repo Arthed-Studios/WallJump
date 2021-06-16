@@ -3,7 +3,6 @@ package me.arthed.walljump.listeners;
 import me.arthed.walljump.WallJump;
 import me.arthed.walljump.player.PlayerManager;
 import me.arthed.walljump.player.WPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
