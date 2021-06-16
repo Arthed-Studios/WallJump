@@ -2,6 +2,7 @@ package me.arthed.walljump.player;
 
 import me.arthed.walljump.WallJump;
 import me.arthed.walljump.api.events.WallJumpEndEvent;
+import me.arthed.walljump.api.events.WallJumpResetEvent;
 import me.arthed.walljump.api.events.WallJumpStartEvent;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.enums.WallFace;
@@ -46,6 +47,7 @@ public class WPlayer {
             return;
 
         WallJumpStartEvent event = new WallJumpStartEvent(this);
+        Bukkit.getPluginManager().callEvent(event);
         if(event.isCancelled())
             return;
 
@@ -126,7 +128,7 @@ public class WPlayer {
         WallJumpEndEvent event = new WallJumpEndEvent(this,
                 (float) config.getDouble("horizontalJumpPower"),
                 (float) config.getDouble("verticalJumpPower"));
-
+        Bukkit.getPluginManager().callEvent(event);
         //if the player is not sliding or can jump while sliding and is not looking down
         if(jump && !event.isCancelled() &&
                 ((velocityY == 0 && player.getLocation().getPitch() < 85) ||
@@ -156,6 +158,8 @@ public class WPlayer {
         if(stopWallJumpingTask != null)
             stopWallJumpingTask.cancel();
         stopWallJumpingTask = null;
+        WallJumpResetEvent event = new WallJumpResetEvent(this);
+        Bukkit.getPluginManager().callEvent(event);
     }
 
     public boolean canWallJump() {
