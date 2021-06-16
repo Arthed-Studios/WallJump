@@ -43,6 +43,11 @@ public final class WallJump extends JavaPlugin {
         return worldGuard;
     }
 
+    private boolean spartan;
+    public Boolean isSpartanEnabled() {
+        return spartan;
+    }
+
 
     @Override
     public void onEnable() {
@@ -81,6 +86,9 @@ public final class WallJump extends JavaPlugin {
         if(worldGuardPlugin != null) {
             worldGuard = new WorldGuardHandler(worldGuardPlugin, this);
         }
+
+        if(getServer().getPluginManager().getPlugin("Spartan") != null)
+            spartan = true;
     }
 
     @Override
