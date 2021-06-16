@@ -14,7 +14,7 @@ public class PlayerToggleSneakListener implements Listener {
 
     private final PlayerManager playerManager = WallJump.getInstance().getPlayerManager();
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
         Player player = event.getPlayer();
         if(!player.isFlying()) {
