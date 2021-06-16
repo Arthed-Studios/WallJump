@@ -1,34 +1,24 @@
 package me.arthed.walljump.handlers;
 
-import me.arthed.walljump.api.events.WallJumpEndEvent;
-import me.arthed.walljump.api.events.WallJumpStartEvent;
-import me.arthed.walljump.utils.BukkitUtils;
-import me.treyruffy.treysdoublejump.api.DoubleJumpAPI;
+import me.arthed.walljump.WallJump;
+import me.arthed.walljump.player.PlayerManager;
+import me.arthed.walljump.utils.LocationUtils;
+import me.treyruffy.treysdoublejump.api.GroundPoundEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class OtherPluginsHandler implements Listener {
 
-    private boolean treysDoubleJump;
-    private boolean canGroundPound;
+    private final PlayerManager playerManager;
 
     public OtherPluginsHandler() {
-        treysDoubleJump = BukkitUtils.isPluginInstalled("TreysDoubleJump");
+        playerManager = WallJump.getInstance().getPlayerManager();
     }
 
     @EventHandler
-    public void onWallJumpStart(WallJumpStartEvent event) {
-        if(treysDoubleJump) {
-            canGroundPound = DoubleJumpAPI.isGroundPoundEnabled(event.getPlayer());
-            DoubleJumpAPI.setGroundPound(event.getPlayer(), false);
-        }
-    }
-
-    @EventHandler
-    public void onWallJumpEnd(WallJumpEndEvent event) {
-        if(treysDoubleJump) {
-            DoubleJumpAPI.setGroundPound(event.getPlayer(), canGroundPound);
-        }
+    public void onTreysDoubleJumpGroundPound(GroundPoundEvent event) {
+        if(playerManager.getWPlayer(event.getPlayer()).isWallJumping() || LocationUtils.isTouchingAWall(event.getPlayer()))
+            event.setCancelled(true);
     }
 
 }
