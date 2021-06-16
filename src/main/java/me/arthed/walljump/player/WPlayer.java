@@ -1,6 +1,8 @@
 package me.arthed.walljump.player;
 
 import me.arthed.walljump.WallJump;
+import me.arthed.walljump.api.events.WallJumpEndEvent;
+import me.arthed.walljump.api.events.WallJumpStartEvent;
 import me.arthed.walljump.config.WallJumpConfiguration;
 import me.arthed.walljump.enums.WallFace;
 import me.arthed.walljump.handlers.WorldGuardHandler;
@@ -41,6 +43,10 @@ public class WPlayer {
 
     public void onWallJumpStart() {
         if(!canWallJump())
+            return;
+
+        WallJumpStartEvent event = new WallJumpStartEvent(this);
+        if(event.isCancelled())
             return;
 
         onWall = true;
@@ -116,14 +122,19 @@ public class WPlayer {
         player.setFallDistance(0);
         velocityTask.cancel();
 
+        //call event
+        WallJumpEndEvent event = new WallJumpEndEvent(this,
+                (float) config.getDouble("horizontalJumpPower"),
+                (float) config.getDouble("verticalJumpPower"));
+
         //if the player is not sliding or can jump while sliding and is not looking down
-        if(jump &&
+        if(jump && !event.isCancelled() &&
                 ((velocityY == 0 && player.getLocation().getPitch() < 85) ||
                 (config.getBoolean("canJumpWhileSliding") && player.getLocation().getPitch() < 60)))
             //push the player in the direction that they are looking
             VelocityUtils.pushPlayerInFront(player,
-                    (float) config.getDouble("horizontalJumpPower"),
-                    (float) config.getDouble("verticalJumpPower"));
+                    event.getHorizontalPower(),
+                    event.getVerticalPower());
 
         //after 1.5 seconds, if the player hasn't wall jumped again, reset everything
         Bukkit.getScheduler().runTaskLaterAsynchronously(WallJump.getInstance(), () -> {
@@ -147,7 +158,7 @@ public class WPlayer {
         stopWallJumpingTask = null;
     }
 
-    private boolean canWallJump() {
+    public boolean canWallJump() {
         WallFace facing = LocationUtils.getPlayerFacing(player);
         if(lastJumpLocation != null)
             //used so height doesn't matter when calculating distance between the players location and the last jump location

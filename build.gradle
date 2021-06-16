@@ -27,8 +27,12 @@ repositories {
         url 'https://repo.janmm14.de/repository/public'
     }
     maven {
-        name 'nocheatplus'
+        name 'no-cheat-plus'
         url 'https://repo.md-5.net/content/repositories/snapshots/'
+    }
+    maven {
+        name 'treys-double-jump'
+        url 'https://jitpack.io'
     }
 }
 
@@ -39,5 +43,6 @@ dependencies {
 
     compileOnly 'de.janmm14:aac-api:5.0.0'
     compileOnly 'fr.neatmonster:nocheatplus:3.16.1-SNAPSHOT'
+    implementation 'com.github.TreyRuffy.TreysDoubleJump:TreysDoubleJump:2.6.4'
     compileOnly files('libs/SpartanAPI.jar')
 }
