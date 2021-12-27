@@ -5,9 +5,6 @@ plugins {
 group = 'me.arthed.walljump'
 version = '2.0.2'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
 repositories {
     mavenCentral()
     maven {
@@ -39,7 +36,7 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
-    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.7-SNAPSHOT'
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT'
 
     compileOnly 'de.janmm14:aac-api:5.0.0'
     compileOnly 'fr.neatmonster:nocheatplus:3.16.1-SNAPSHOT'
