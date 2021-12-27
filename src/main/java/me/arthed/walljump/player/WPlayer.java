@@ -63,14 +63,14 @@ public class WPlayer {
         AntiCheatUtils.stopPotentialAntiCheatChecks(player);
 
         //play sound and spawn particles
-        EffectUtils.playWallJumpSound(player, lastFacing, 0.3f, 1.2f);
+        EffectUtils.playWallJumpSound(player, lastFacing);
         EffectUtils.spawnSlidingParticles(player, 5, lastFacing);
 
         //stop the player from falling and moving while on the wall
         //or make them slide down
         velocityY = 0;
-        if(BukkitUtils.isVersionBefore(BukkitUtils.Version.V1_9))
-            velocityY = 0.04f;
+/*        if(BukkitUtils.isVersionBefore(BukkitUtils.Version.V1_9))
+            velocityY = 0.04f;*/
         velocityTask = Bukkit.getScheduler().runTaskTimerAsynchronously(WallJump.getInstance(), () -> {
             player.setVelocity(new Vector(0, velocityY, 0));
             if(velocityY != 0) {
@@ -85,7 +85,7 @@ public class WPlayer {
                     }
                     if (lastJumpLocation.getY() - player.getLocation().getY() >= 1.2) {
                         lastJumpLocation = player.getLocation();
-                        EffectUtils.playWallJumpSound(player, lastFacing, 0.2f, 0.6f);
+                        EffectUtils.playWallJumpSound(player, lastFacing);
                     }
                 }
             }

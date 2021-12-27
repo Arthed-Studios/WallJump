@@ -1,0 +1,28 @@
+plugins {
+    id 'application'
+}
+
+group = 'me.arthed.walljump'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
+    implementation project(':NMS:Global')
+    implementation project(':NMS:v1_10')
+    implementation project(':NMS:v1_11')
+    implementation project(':NMS:v1_12')
+    implementation project(':NMS:v1_13')
+    implementation project(':NMS:v1_14')
+    implementation project(':NMS:v1_15')
+    implementation project(':NMS:v1_16')
+    implementation project(':NMS:v1_17')
+    implementation project(':NMS:v1_18')
+
+}

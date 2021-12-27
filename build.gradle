@@ -45,4 +45,6 @@ dependencies {
     compileOnly 'fr.neatmonster:nocheatplus:3.16.1-SNAPSHOT'
     implementation 'com.github.TreyRuffy.TreysDoubleJump:TreysDoubleJump:2.6.4'
     compileOnly files('libs/SpartanAPI.jar')
+
+    implementation project(':NMS')
 }
