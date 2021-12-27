@@ -1,6 +1,7 @@
 package me.arthed.walljump.utils;
 
 import me.arthed.walljump.enums.WallFace;
+import me.arthed.walljump.nms.BukkitVersion;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public class LocationUtils {
     }
 
     public static WallFace getPlayerFacing(Player player) {
-        if(BukkitUtils.isVersionAfter(BukkitUtils.Version.V1_13))
+        if(!BukkitVersion.version.isLessThan(BukkitVersion.v1_12)) //1.13+
             return WallFace.fromBlockFace(player.getFacing());
         else {
             double rotation = (player.getLocation().getYaw() - 90.0F) % 360.0F;

@@ -1,13 +1,12 @@
 package me.arthed.walljump.utils;
 
 import me.arthed.walljump.enums.WallFace;
+import me.arthed.walljump.nms.BukkitVersion;
 import me.arthed.walljump.nms.NmsUtils;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-
-import me.arthed.walljump.utils.BukkitUtils.Version;
 
 public class EffectUtils {
 
@@ -15,7 +14,7 @@ public class EffectUtils {
         Object data;
         Location location = player.getLocation();
         Block block = location.clone().add(facing.xOffset, facing.yOffset, facing.zOffset).getBlock();
-        if(BukkitUtils.isVersionBefore(Version.V1_12))
+        if(BukkitVersion.version.isLessThan(BukkitVersion.v1_12))
             data = block.getType().getNewData(block.getData());
         else //1.13+
             data = block.getBlockData();
