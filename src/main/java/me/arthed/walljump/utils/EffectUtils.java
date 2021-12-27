@@ -12,8 +12,6 @@ import me.arthed.walljump.utils.BukkitUtils.Version;
 public class EffectUtils {
 
     public static void spawnSlidingParticles(Player player, int count, WallFace facing) {
-        if(BukkitUtils.isVersionBefore(Version.V1_8))
-            return;
         Object data;
         Location location = player.getLocation();
         Block block = location.clone().add(facing.xOffset, facing.yOffset, facing.zOffset).getBlock();
