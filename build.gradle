@@ -39,10 +39,9 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
-    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.6-SNAPSHOT'
-
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.1.0-SNAPSHOT'
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'me.vagdedes.spartan:SpartanAPI:1.0'
-    compileOnly 'de.janmm14:aac-api:5.0.0'
     compileOnly 'fr.neatmonster:nocheatplus:3.16.1-SNAPSHOT'
     implementation 'com.github.TreyRuffy.TreysDoubleJump:TreysDoubleJump:2.6.4'
 
