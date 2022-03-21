@@ -6,7 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_18_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_18_R2.block.data.CraftBlockData;
 
-public class NmsUtils_v1_18 implements NmsUtilsVersion {
+public class NmsUtils_v1_18_2 implements NmsUtilsVersion {
 
     @Override
     public void playStepSound(Block block) {

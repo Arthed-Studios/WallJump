@@ -1,5 +1,6 @@
 package me.arthed.walljump.nms;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 public class NmsUtils {
@@ -9,6 +10,10 @@ public class NmsUtils {
     static {
         switch(BukkitVersion.getVersion()) {
             case v1_18:
+                if (Bukkit.getVersion().contains("1.18.2")){
+                    utils = new NmsUtils_v1_18_2();
+                    break;
+                }
                 utils = new NmsUtils_v1_18();
                 break;
             case v1_17:

@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 group = 'me.arthed.walljump'
-version = '2.0.2'
+version = '2.0.3-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -39,11 +40,11 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
-    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.1.0-SNAPSHOT'
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.7'
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'me.vagdedes.spartan:SpartanAPI:1.0'
     compileOnly 'fr.neatmonster:nocheatplus:3.16.1-SNAPSHOT'
-    implementation 'com.github.TreyRuffy.TreysDoubleJump:TreysDoubleJump:2.6.4'
+    compileOnly 'com.github.TreyRuffy.TreysDoubleJump:TreysDoubleJump:2.6.4'
 
     implementation project(':NMS')
 }
