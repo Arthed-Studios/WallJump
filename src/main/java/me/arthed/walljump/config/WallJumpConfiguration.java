@@ -35,6 +35,7 @@ public class WallJumpConfiguration extends YamlConfiguration {
         InputStream defaultConfigInputStream = WallJump.class.getResourceAsStream("/" + fileName);
         InputStreamReader defaultConfigReader = new InputStreamReader(defaultConfigInputStream);
         setDefaults(YamlConfiguration.loadConfiguration(defaultConfigReader));
+
     }
 
     public void reload() {

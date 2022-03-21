@@ -60,9 +60,11 @@ public final class WallJump extends JavaPlugin {
                 new PlayerJoinListener(),
                 new PlayerQuitListener(),
                 new PlayerToggleSneakListener(),
-                new PlayerDamageListener(),
-                new OtherPluginsHandler()
+                new PlayerDamageListener()
         );
+
+        if(Bukkit.getPluginManager().getPlugin("TreysDoubleJump") != null)
+            Bukkit.getPluginManager().registerEvents(new OtherPluginsHandler(), this);
 
         this.getCommand("walljump").setExecutor(new WallJumpCommand());
 

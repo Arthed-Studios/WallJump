@@ -17,13 +17,16 @@ slidingSpeed: 0.17
 #If true, the player will be pushed up when they release shift, even if they are sliding
 canJumpWhileSliding: true
 #The amount of times the player can wall jump in a row Default: 0
-#Set to 0 to disable
+#Set to 0 to for no limit
 maxJumps: 0
+#If false, players will be able to wall jump on a single wall multiple times | Default: true
+#When disabled it is also recommended setting the minimumDistance to 0
+requireDirectionChange: true
 #The minimum distance the player needs to jump to be able to stick to another wall | Default: 0.3
 minimumDistance: 0.3
 #The maximum velocity for the player to be able to stick to a wall | Default: -1
 maximumVelocity: -1
-#If true, players will need the permission "walljump.use" to wall-jump
+#If true, players will need the permission "walljump.use" to wall jump
 needPermission: false
 
 
