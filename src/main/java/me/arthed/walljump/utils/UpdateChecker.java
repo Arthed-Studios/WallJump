@@ -1,11 +1,5 @@
 package me.arthed.walljump.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -13,6 +7,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 
 public class UpdateChecker implements Listener {
@@ -50,23 +51,38 @@ public class UpdateChecker implements Listener {
                 if (br.readLine().equals(currentVers)) {
                     update = false;
                 } else {
+
                     update = true;
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
-                    for(Player p : Bukkit.getOnlinePlayers()) {
-                        if(p.isOp()) {
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
+                    if (currentVers.contains("SNAPSHOT")) {
+                        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[WallJump] &aThis is snapshot version! Check out the updates often: https://www.spigotmc.org/resources/88311/"));
+                        for (Player p : Bukkit.getOnlinePlayers()) {
+                            if (p.isOp()) {
+                                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[WallJump] &aThis is snapshot version! Check out the updates often: https://www.spigotmc.org/resources/88311/"));
+                            }
+                        }
+                    } else {
+                        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
+                        for (Player p : Bukkit.getOnlinePlayers()) {
+                            if (p.isOp()) {
+                                p.sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
+                            }
                         }
                     }
                 }
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
     };
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        if(p.isOp() && update) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
+        if (p.isOp() && update) {
+            if (currentVers.contains("SNAPSHOT")) {
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[WallJump] &aThis is snapshot version! Check out the updates often: https://www.spigotmc.org/resources/88311/"));
+            } else {
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', updateAvailableMessage));
+            }
         }
     }
 

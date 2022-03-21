@@ -24,5 +24,6 @@ dependencies {
     implementation project(':NMS:v1_16')
     implementation project(':NMS:v1_17')
     implementation project(':NMS:v1_18')
+    implementation project(':NMS:v1_18_2')
 
 }
